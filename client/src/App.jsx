@@ -9,6 +9,7 @@ import { PrivateRoutes } from './utils'
 // Pages
 import { HomePage, LoginPage, RegisterPage, UserImagePage } from './pages'
 import { NavigationBar } from './components'
+import LostPage from './pages/LostPage'
 
 const App = () => {
   return (
@@ -24,9 +25,10 @@ const App = () => {
         {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/lost" element={<LostPage/>}/>
 
         {/* If the user enters an invalid path in the URL it automatically redirects them to the homepage */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/lost" replace />} />
       </Routes>
 
       {/* Remember to render the ToastContainer once in your application tree. Rendering it in the application root would be the best bet */}

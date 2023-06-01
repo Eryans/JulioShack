@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { AuthState } from '../../context/AuthProvider'
 import { Notify } from '../../utils'
+import Wrapper from '../../components/Wrapper'
 
 const HomePage = () => {
   const [privateMessage, setPrivateMessage] = useState('')
@@ -41,7 +42,7 @@ const HomePage = () => {
   }, [])
 
   return (
-    <>
+    <Wrapper>
       <div>
         Welcome to our wacky world of image hosting madness!
         <br />
@@ -89,7 +90,7 @@ const HomePage = () => {
         It's going to be mind-blowing!
       </div>
       <span>{privateMessage}</span>
-    </>
+    </Wrapper>
   )
 }
 
