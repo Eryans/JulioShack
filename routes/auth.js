@@ -1,13 +1,84 @@
 const express = require("express");
 
-const {
-  register,
-  login,
-} = require("../controllers/auth");
-
+const upload = require("../config/multerConfig");
+const Image = require("../models/Image");
+const User = require("../models/User");
+const ErrorResponse = require("../utils/errorResponse");
 const router = express.Router();
 
-router.route("/register").post(register);
-router.route("/login").post(login);
+router.post("/register", upload.single("profilePic"), async (req, res) => {
+  try {
+    const { name, password } = req.body;
+    const { filename } = req.file;
+    const userExist = await User.find({ name: name });
+    if (userExist)
+      return res.json({ success: false, error: "Username already exists :(" });
+    const image = false;
+    // Créer un nouvel utilisateur
+    const user = await User.create({
+      name,
+      password,
+    });
+
+    if (Boolean(filename)) {
+      // Créer une nouvelle image
+      const image = await Image.create({
+        filename: filename,
+        path: req.file.path,
+        isPrivate: false,
+        user: user._id,
+      });
+
+      user.profilePic = image._id;
+      await user.save();
+    }
+
+    res.status(201).json({ success: true, user, image });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error });
+    console.log(error);
+  }
+});
+
+router.post("/login", async (req, res, next) => {
+  try {
+    const { name, password } = req.body;
+
+    if (!name || !password) {
+      return next(
+        new ErrorResponse("Please provide username and password", 400)
+      );
+    }
+
+    const user = await User.findOne({ name }).select("+password"); // Explicitly adding password
+
+    if (!user) {
+      return next(new ErrorResponse("Invalid credentials", 401));
+    }
+
+    // Using our own custom method to compare passwords
+    const isMatched = await user.matchPasswords(password);
+
+    if (!isMatched) {
+      return next(new ErrorResponse("Invalid credentials", 401));
+    }
+
+    return sendAuth(user, 200, res);
+  } catch (error) {
+    console.log(error);
+    return next(error);
+  }
+});
+
+const sendAuth = (user, statusCode, res) => {
+  return res.status(statusCode).json({
+    success: true,
+    name: user.name,
+    email: user.email,
+    profilePic: user.profilePic,
+    token: user.getSignedToken(),
+    expires_at: new Date(Date.now() + process.env.JWT_EXPIRE * 60 * 60 * 1000),
+  });
+};
 
 module.exports = router;

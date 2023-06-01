@@ -26,8 +26,7 @@ const RegisterPage = () => {
   const handleProfilePic = async (e) => {
     setIsLoading(true)
     const profilePic = e.target.files[0] // Get the file
-    const imageUrl = URL.createObjectURL(profilePic)
-    console.log(imageUrl)
+
     // Check file type
     if (
       profilePic.type !== 'image/jpeg' &&
@@ -51,9 +50,9 @@ const RegisterPage = () => {
     try {
       setCredentials({
         ...credentials,
-        profilePic: imageUrl, // Mettre à jour avec l'URL de l'image
+        profilePic: profilePic, // Store the actual file
       })
-      setimagePreview(imageUrl)
+      setimagePreview(URL.createObjectURL(profilePic)) // Use object URL for preview
       setIsLoading(false)
       return Notify('Profile picture uploaded', 'success')
     } catch (error) {
@@ -92,16 +91,13 @@ const RegisterPage = () => {
 
     try {
       // Register user
+      const formData = new FormData()
+      formData.append('profilePic', credentials.profilePic)
+      formData.append('name', credentials.name)
+      formData.append('password', credentials.password)
       const response = await fetch('/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: credentials.name,
-          password: credentials.password,
-          profilePic: credentials.profilePic,
-        }),
+        body: formData,
       })
       const data = await response.json()
 
@@ -122,7 +118,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <Form className="auth__form" onSubmit={registerHandler}>
+    <Form className="auth__form" onSubmit={registerHandler}  encType="multipart/form-data">
       <h2 className="text-center mb-5">Create new account</h2>
 
       <Form.Group className="mb-3 d-flex justify-content-center">
@@ -131,7 +127,7 @@ const RegisterPage = () => {
           src={imagePreview}
           alt="Profile image"
           draggable="false"
-          style={{objectFit:"cover"}}
+          style={{ objectFit: 'cover' }}
           roundedCircle
         />
       </Form.Group>
