@@ -1,18 +1,14 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
-import "react-toastify/dist/ReactToastify.min.css"; // CSS for "react-toastify"
+import 'react-toastify/dist/ReactToastify.min.css' // CSS for "react-toastify"
 
 // Private route
-import { PrivateRoutes } from "./utils";
+import { PrivateRoutes } from './utils'
 
 // Pages
-import {
-  HomePage,
-  LoginPage,
-  RegisterPage,
-} from "./pages";
-import { NavigationBar } from "./components";
+import { HomePage, LoginPage, RegisterPage, UserImagePage } from './pages'
+import { NavigationBar } from './components'
 
 const App = () => {
   return (
@@ -22,12 +18,12 @@ const App = () => {
         {/* Private routes (Requires authentication token) */}
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/user-images" element={<UserImagePage />} />
         </Route>
 
         {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-
 
         {/* If the user enters an invalid path in the URL it automatically redirects them to the homepage */}
         <Route path="*" element={<Navigate to="/login" replace />} />
@@ -36,7 +32,7 @@ const App = () => {
       {/* Remember to render the ToastContainer once in your application tree. Rendering it in the application root would be the best bet */}
       <ToastContainer />
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
