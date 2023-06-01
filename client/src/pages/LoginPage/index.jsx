@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button, Spinner } from 'react-bootstrap'
 
@@ -15,6 +15,16 @@ const LoginPage = () => {
 
   const navigate = useNavigate()
   const { setAuth } = AuthState()
+  
+  useEffect(() => {
+    const auth =
+      localStorage.getItem('auth') !== null &&
+      new Date() < new Date(JSON.parse(localStorage.getItem('auth')).expires_at)
+        ? JSON.parse(localStorage.getItem('auth'))
+        : null
+
+        if (auth) navigate('/')
+  }, [navigate])
 
   const handleCredentials = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
@@ -61,7 +71,7 @@ const LoginPage = () => {
 
   return (
     <Form className="auth__form" onSubmit={loginHandler}>
-      <div className='d-flex flex-column justify-content-center align-items-center'>
+      <div className="d-flex flex-column justify-content-center align-items-center">
         <h3 className="text-center mb-5">
           Login to <br /> Your Julio Shack Account
         </h3>
@@ -72,7 +82,10 @@ const LoginPage = () => {
           height="150"
           className="d-inline-block align-top"
         />
-        <h2>The best image app<br/> for shitpost purpose</h2>
+        <h2>
+          The best image app
+          <br /> for shitpost purpose
+        </h2>
       </div>
       <Form.Group className="mb-3" controlId="name">
         <Form.Label>Username</Form.Label>
