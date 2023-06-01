@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react'
 import {
   Container,
   Dropdown,
@@ -6,43 +6,47 @@ import {
   Image,
   Nav,
   Navbar,
-} from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+} from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
 
-import IMAGES from "../../assets"; // Importing images from single "IMAGES" object
-import { AuthState } from "../../context/AuthProvider";
-import ProfileModal from "../ProfileModal/ProfileModal";
+import IMAGES from '../../assets' // Importing images from single "IMAGES" object
+import { AuthState } from '../../context/AuthProvider'
+import ProfileModal from '../ProfileModal/ProfileModal'
 
-import "./NavigationBar.css";
+import './NavigationBar.css'
 
 const NavigationBar = () => {
-  const [modalShow, setModalShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false)
 
-  const navigate = useNavigate();
-  const { auth, setAuth } = AuthState();
+  const navigate = useNavigate()
+  const { auth, setAuth } = AuthState()
 
   const logoutHandler = () => {
-    localStorage.removeItem("auth");
-    setAuth(null);
-    return navigate("/login");
-  };
+    localStorage.removeItem('auth')
+    setAuth(null)
+    return navigate('/login')
+  }
 
   return (
     <Navbar collapseOnSelect expand="md" variant="dark" id="nav">
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          className="d-flex justify-content-center align-items-center"
+        >
           <img
-            alt="Advanced Node Authentication Logo"
-            src={IMAGES.logo}
-            width="30"
-            height="30"
+            alt="Julio Shack"
+            src={IMAGES.julio}
+            width="60"
+            height="60"
             className="d-inline-block align-top"
           />
-          &nbsp;Advanced Node Authentication
+          &nbsp;Julio Shack
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
+        {console.log(auth)}
         <Navbar.Collapse className="justify-content-end">
           {auth ? (
             <DropdownButton
@@ -51,7 +55,7 @@ const NavigationBar = () => {
               title={
                 <Image
                   id="profileDropdownIcon"
-                  src={auth.profilePic}
+                  src={auth.profilePic.path}
                   alt="Navbar profile image"
                   roundedCircle
                 />
@@ -75,13 +79,13 @@ const NavigationBar = () => {
             <Nav.Item>
               <button
                 className="nav-button me-2"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate('/login')}
               >
                 Log in
               </button>
               <button
                 className="nav-button"
-                onClick={() => navigate("/register")}
+                onClick={() => navigate('/register')}
               >
                 Register
               </button>
@@ -90,7 +94,7 @@ const NavigationBar = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
-};
+  )
+}
 
-export default NavigationBar;
+export default NavigationBar

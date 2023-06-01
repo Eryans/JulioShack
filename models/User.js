@@ -13,10 +13,15 @@ const UserSchema = new mongoose.Schema(
       select: false, // Whenever we query for a user, do we want to return password as well
     },
     profilePic: {
-      type: String,
-      default:
-        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg", // Default profile pic
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Image",
     },
+    images: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Image",
+      },
+    ],
     resetPasswordToken: String, // String is shorthand for {type: String}
     resetPasswordExpire: Date,
   },

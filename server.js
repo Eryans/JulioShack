@@ -41,6 +41,10 @@ const server = app.listen(PORT, () =>
   console.log(`Server running on PORT ${PORT}`)
 );
 
+// Images folder
+app.use('/uploads', express.static('uploads'));
+
+
 // Handling server errors with clean error messages
 process.on("unhandledRejection", (err, promise) => {
   console.log(`Logged Error: ${err.message}`);

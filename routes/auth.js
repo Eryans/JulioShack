@@ -70,12 +70,13 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-const sendAuth = (user, statusCode, res) => {
+const sendAuth = async (user, statusCode, res) => {
+  const profilePic = await Image.findById(user.profilePic)
   return res.status(statusCode).json({
     success: true,
     name: user.name,
     email: user.email,
-    profilePic: user.profilePic,
+    profilePic: profilePic,
     token: user.getSignedToken(),
     expires_at: new Date(Date.now() + process.env.JWT_EXPIRE * 60 * 60 * 1000),
   });
