@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Spinner } from "react-bootstrap";
-import { FaUserAlt } from "react-icons/fa";
 
 import { AuthState } from "../../context/AuthProvider";
 import { Notify } from "../../utils";
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({
-    email: "",
+    name: "",
     password: "",
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +24,7 @@ const LoginPage = () => {
     setIsLoading(true);
 
     // If any field is missing
-    if (!credentials.email || !credentials.password) {
+    if (!credentials.name || !credentials.password) {
       setIsLoading(false);
       return Notify("Please Fill all the Feilds", "warn");
     }
@@ -37,7 +36,7 @@ const LoginPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: credentials.email,
+          name: credentials.name,
           password: credentials.password,
         }),
       });
@@ -62,14 +61,14 @@ const LoginPage = () => {
   return (
     <Form className="auth__form" onSubmit={loginHandler}>
       <h3 className="text-center mb-5">Login to Your Account</h3>
-      <Form.Group className="mb-3" controlId="email">
-        <Form.Label>Email address</Form.Label>
+      <Form.Group className="mb-3" controlId="name">
+        <Form.Label>Username</Form.Label>
         <Form.Control
-          type="email"
-          name="email"
+          type="text"
+          name="name"
           tabIndex="1"
-          placeholder="Enter email"
-          value={credentials.email}
+          placeholder="Enter username"
+          value={credentials.name}
           onChange={(e) => handleCredentials(e)}
         />
       </Form.Group>
@@ -86,21 +85,11 @@ const LoginPage = () => {
         />
       </Form.Group>
 
-      <Form.Group className="mb-3 mt-1 text-center" controlId="register">
-        <Link
-          to="/forgotPassword"
-          tabIndex="4"
-          className="d-flex flex-row-reverse text-decoration-none mb-3"
-        >
-          Forgot password?
-        </Link>
-      </Form.Group>
-
       <Button
         variant="success"
         type="submit"
         tabIndex="3"
-        className="mb-3"
+        className="mb-3 mt-3"
         disabled={isLoading}
       >
         {isLoading ? (
@@ -108,19 +97,6 @@ const LoginPage = () => {
         ) : (
           "Continue"
         )}
-      </Button>
-
-      <Button
-        variant="danger"
-        type="button"
-        tabIndex="4"
-        className="mb-3"
-        onClick={() =>
-          setCredentials({ email: "guest@example.com", password: "12345678" })
-        }
-      >
-        <FaUserAlt className="me-2" />
-        Get Guest User Credentials
       </Button>
 
       <Form.Group className="mb-3 text-center" controlId="register">

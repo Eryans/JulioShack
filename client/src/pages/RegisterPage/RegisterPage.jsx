@@ -9,7 +9,6 @@ import IMAGES from "../../assets";
 const RegisterPage = () => {
   const [credentials, setCredentials] = useState({
     name: "",
-    email: "",
     password: "",
     confirmPassword: "",
     profilePic: "",
@@ -99,7 +98,6 @@ const RegisterPage = () => {
     // If any field is missing
     if (
       !credentials.name ||
-      !credentials.email ||
       !credentials.password ||
       !credentials.confirmPassword
     ) {
@@ -128,7 +126,6 @@ const RegisterPage = () => {
         },
         body: JSON.stringify({
           name: credentials.name,
-          email: credentials.email,
           password: credentials.password,
           profilePic: credentials.profilePic,
         }),
@@ -166,25 +163,13 @@ const RegisterPage = () => {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="name">
-        <Form.Label>Full Name</Form.Label>
+        <Form.Label>Userame</Form.Label>
         <Form.Control
           type="text"
           name="name"
           tabIndex="1"
           placeholder="Full name"
           value={credentials.name}
-          onChange={(e) => handleCredentials(e)}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="email">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          name="email"
-          tabIndex="2"
-          placeholder="Enter email"
-          value={credentials.email}
           onChange={(e) => handleCredentials(e)}
         />
       </Form.Group>
