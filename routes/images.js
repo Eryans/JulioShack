@@ -54,6 +54,37 @@ router.get("/images/:id", protect, async (req, res) => {
   }
 });
 
+// Update - update image privacy
+router.put(
+  `set-user-image-privacy/:user/:imageid`,
+  protect,
+  async (req, res) => {
+    try {
+      const { isPrivate } = req.body;
+      const userExistAndHasImage = await User.findOne({
+        _id: req.params.user,
+        images: req.params.imageid,
+      });
+      if (!userExistAndHasImage)
+        return res.json({
+          success: false,
+          error: "User not found or not associated to image",
+        });
+      await Image.findByIdAndUpdate(
+        req.params.id,
+        { isPrivate },
+        { new: true }
+      );
+
+      res.json({ success: true, message:"image privacy changed to : " +isPrivate ? "private" : "public" });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ success: false, message: "Internal server error", error });
+    }
+  }
+);
+
 // Update - Mettre à jour une image
 router.put("/images/:id", protect, async (req, res) => {
   try {
