@@ -1,9 +1,10 @@
-import { Button, Image, Modal } from "react-bootstrap";
+import { Button, Image, Modal } from 'react-bootstrap'
 
-import { AuthState } from "../../context/AuthProvider";
+import { AuthState } from '../../context/AuthProvider'
+import DeleteProfileButton from '../DeleteProfileButton'
 
 const ProfileModal = ({ show, onHide }) => {
-  const { auth } = AuthState();
+  const { auth } = AuthState()
 
   return (
     <Modal
@@ -22,20 +23,21 @@ const ProfileModal = ({ show, onHide }) => {
         <div className="d-flex justify-content-center">
           <Image
             id="profileModal"
-            src={auth.profilePic.path}
+            src={auth.profilePic.path ?? ""}
             alt="Profile image"
             draggable="false"
             roundedCircle
-            style={{objectFit:"cover"}}
+            style={{ objectFit: 'cover' }}
           />
         </div>
         <h4 className="text-center mt-3">{auth.name}</h4>
       </Modal.Body>
       <Modal.Footer>
+        <DeleteProfileButton closeOriginalModal={onHide}/>
         <Button onClick={onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export default ProfileModal;
+export default ProfileModal
