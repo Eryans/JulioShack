@@ -13,10 +13,10 @@ export async function uploadUserImage(userId, dataToSubmit) {
   return res.data;
 }
 
-export async function setUserImagePrivacy(userId,imageId, dataToSubmit) {
-    const res = await axios.put(
-      `/api/images/set-user-image-privacy/${userId}/${imageId}`,
-      dataToSubmit
-    );
-    return res.data;
-  }
+export async function setUserImagePrivacy(userId, imageId, dataToSubmit) {
+  const res = await axios.put(
+    `/api/images/set-user-image-privacy/${userId}/${imageId}`,
+    dataToSubmit
+  );
+  return res.data;
+}

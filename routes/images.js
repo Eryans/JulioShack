@@ -56,28 +56,39 @@ router.get("/images/:id", protect, async (req, res) => {
 
 // Update - update image privacy
 router.put(
-  `set-user-image-privacy/:user/:imageid`,
+  "/set-user-image-privacy/:user/:imageid",
   protect,
   async (req, res) => {
     try {
-      const { isPrivate } = req.body;
-      const userExistAndHasImage = await User.findOne({
+      const { isPrivate, profilePic } = req.body;
+
+      const user = await User.findOne({
         _id: req.params.user,
         images: req.params.imageid,
       });
-      if (!userExistAndHasImage)
+
+      if (!user)
         return res.json({
           success: false,
           error: "User not found or not associated to image",
         });
-      await Image.findByIdAndUpdate(
-        req.params.id,
-        { isPrivate },
+      const image = await Image.findByIdAndUpdate(
+        req.params.imageid,
+        { isPrivate: profilePic ? false : isPrivate },
         { new: true }
       );
-
-      res.json({ success: true, message:"image privacy changed to : " +isPrivate ? "private" : "public" });
+      if (profilePic) {
+        user.profilePic = image._id;
+        await user.save()
+      }
+      res.json({
+        success: true,
+        profilePic: profilePic ? image : "no change",
+        message:
+          "image privacy changed to : " + isPrivate ? "private" : "public",
+      });
     } catch (error) {
+      console.log(error)
       res
         .status(500)
         .json({ success: false, message: "Internal server error", error });
