@@ -4,7 +4,7 @@ import { AuthState } from '../../context/AuthProvider'
 import { setUserImagePrivacy } from '../../actions/imageAction'
 import { Notify } from '../../utils'
 
-const Imagehandler = ({ image, refresh }) => {
+const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
   const { auth } = AuthState()
   const [showModal, setShowModal] = useState(false)
   const [isPrivate, setIsPrivate] = useState(image.isPrivate)
@@ -112,7 +112,7 @@ const Imagehandler = ({ image, refresh }) => {
             }}
           />
         </Modal.Body>
-        {canModify && (
+        {canModify && allowOptionForm && (
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="isPrivateCheckbox">
               <Form.Check
