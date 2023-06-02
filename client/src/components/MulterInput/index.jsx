@@ -29,6 +29,7 @@ const MulterInput = ({ refresh }) => {
       .then((data) => {
         formData.delete('image')
         setSelectedFile(null)
+        refresh()
         return Notify('Wouhou ! Image uploaday !','success')
         // Faire quelque chose avec la réponse du serveur
       })
