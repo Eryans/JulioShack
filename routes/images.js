@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const Image = require("../models/Image");
 const upload = require("../config/multerConfig");
-const {protect} = require("../middleware/auth")
+const { protect } = require("../middleware/auth");
 const router = express.Router();
 
 // Create - Ajouter une nouvelle image
@@ -24,12 +24,13 @@ router.post("/images", protect, upload.single("image"), async (req, res) => {
 });
 
 // Read - Récupérer toutes les images
-router.get("/images", protect, async (req, res) => {
+router.get("/user-images/:user", protect, async (req, res) => {
   try {
-    const images = await Image.find();
-    res.json(images);
+    if (!req.params.user) return res.json({ success: false, error: "no user" });
+    const images = await Image.find({ user: req.params.user });
+    res.json({ success: true, data: images });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", error });
+    res.status(500).json({ message: "Internal server error", error: error });
   }
 });
 
