@@ -46,7 +46,6 @@ const NavigationBar = () => {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        {console.log(auth)}
         <Navbar.Collapse className="justify-content-end">
           {auth ? (
             <DropdownButton
