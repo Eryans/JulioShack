@@ -23,27 +23,46 @@ const groupImagesByMonth = (images) => {
   return groupedImages
 }
 
-const ImageGallery = ({ images, refresh, allowOptionForm = false }) => {
+const ImageGallery = ({
+  images,
+  refresh,
+  allowOptionForm = false,
+  sortByDate = true,
+}) => {
   const groupedImages = groupImagesByMonth(images)
 
   return (
     <>
-      {Object.entries(groupedImages).map(([month, monthImages]) => (
-        <div key={month}>
-          <h2>{month}</h2>
-          <Row className="gap-2 align-items-center justify-content-center">
-            {monthImages.map((image, index) => (
-              <Col key={index} xs={4} md={4} lg={3}>
-                <Imagehandler
-                  image={image}
-                  refresh={refresh}
-                  allowOptionForm={allowOptionForm}
-                />
-              </Col>
-            ))}
-          </Row>
-        </div>
-      ))}
+      {sortByDate ? (
+        Object.entries(groupedImages).map(([month, monthImages]) => (
+          <div key={month} className='w-100'>
+            <h2>{month}</h2>
+            <Row className="gap-2 align-items-center justify-content-center">
+              {monthImages.map((image, index) => (
+                <Col key={index} xs={4} md={4} lg={3}>
+                  <Imagehandler
+                    image={image}
+                    refresh={refresh}
+                    allowOptionForm={allowOptionForm}
+                  />
+                </Col>
+              ))}
+            </Row>
+          </div>
+        ))
+      ) : (
+        <Row className="gap-2 align-items-center justify-content-center">
+          {images.map((image, index) => (
+            <Col key={index} xs={4} md={4} lg={3}>
+              <Imagehandler
+                image={image}
+                refresh={refresh}
+                allowOptionForm={allowOptionForm}
+              />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   )
 }

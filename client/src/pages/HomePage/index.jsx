@@ -24,7 +24,7 @@ const HomePage = () => {
       <HomeText />
 
       <h2 className="mb-5 mt-5">5 dernières images !</h2>
-      <ImageGallery images={userImages} refresh={handleRefresh} />
+      <ImageGallery images={userImages} refresh={handleRefresh} sortByDate={false} />
       <div className="mb-5" />
     </Wrapper>
   )
