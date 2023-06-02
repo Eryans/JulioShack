@@ -18,9 +18,13 @@ const UserImagepage = () => {
 
   return (
     <Wrapper>
-      <h1>Hello World</h1>
-      <MulterInput />
-      <ImageGallery images={userImages} />
+      <div className="d-flex flex-column gap-5 align-items-center">
+        <h1 className="text-center">
+          Le Carrousel Épique de l'Imaginarium Visuel
+        </h1>
+        <MulterInput />
+        <ImageGallery images={userImages} />
+      </div>
     </Wrapper>
   )
 }
