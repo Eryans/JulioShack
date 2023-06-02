@@ -33,7 +33,7 @@ router.post(
   }
 );
 
-// Read - Récupérer toutes les images
+// Read - Récupérer toutes les images de l'utilisateur
 router.get("/user-images/:user", protect, async (req, res) => {
   try {
     if (!req.params.user) return res.json({ success: false, error: "no user" });
@@ -43,7 +43,15 @@ router.get("/user-images/:user", protect, async (req, res) => {
     res.status(500).json({ message: "Internal server error", error: error });
   }
 });
-
+// Read - Récupérer toutes les images publiques
+router.get("/public-images/:limit", protect, async (req, res) => {
+  try {
+    const images = await Image.find({ isPrivate: false }).limit(req.params.limit ?? 20);
+    res.json({ success: true, data: images });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error: error });
+  }
+});
 // Read - Récupérer une image par son ID
 router.get("/images/:id", protect, async (req, res) => {
   try {

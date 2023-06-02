@@ -4,6 +4,10 @@ export async function getUserImage(userId) {
   const res = await axios.get(`/api/images/user-images/${userId}`);
   return res.data;
 }
+export async function getPublicImages(limit) {
+  const res = await axios.get(`/api/images/public-images/${limit}`);
+  return res.data;
+}
 
 export async function uploadUserImage(userId, dataToSubmit) {
   const res = await axios.post(
