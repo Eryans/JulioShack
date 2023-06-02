@@ -22,14 +22,14 @@ const ProfileModal = ({ show, onHide }) => {
         <div className="d-flex justify-content-center">
           <Image
             id="profileModal"
-            src={auth.profilePic}
+            src={auth.profilePic.path}
             alt="Profile image"
             draggable="false"
             roundedCircle
+            style={{objectFit:"cover"}}
           />
         </div>
         <h4 className="text-center mt-3">{auth.name}</h4>
-        <h4 className="text-center">Email: {auth.email}</h4>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={onHide}>Close</Button>
