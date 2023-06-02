@@ -15,13 +15,13 @@ router.post(
     try {
       const user = await User.findById(req.params.user);
       if (!user) return res.json({ success: false, error: "No user found" });
-
       const { filename, path } = req.file;
 
       const image = await Image.create({
         user: user._id,
         filename,
         path,
+        isPrivate: req.body.isPrivate ?? false,
       });
 
       user.images.push(image);

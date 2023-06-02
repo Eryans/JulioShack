@@ -6,16 +6,23 @@ import { Notify } from '../../utils'
 
 const MulterInput = ({ refresh }) => {
   const [selectedFile, setSelectedFile] = useState(null)
+  const [isPrivate, setIsPrivate] = useState(false);
+
   const { auth } = AuthState()
+  
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0])
   }
+
+  const handleCheckboxChange = (event) => {
+    setIsPrivate(event.target.checked);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault()
     const formData = new FormData()
     formData.append('image', selectedFile)
-
+    formData.append('isPrivate',isPrivate)
     // Envoyer formData vers votre API pour gérer l'upload avec Multer
     // Exemple avec fetch :
     uploadUserImage(auth._id, formData)
@@ -37,6 +44,14 @@ const MulterInput = ({ refresh }) => {
       <Form.Group controlId="fileUpload">
         <Form.Label>Choisir un fichier</Form.Label>
         <Form.Control type="file" onChange={handleFileChange} />
+      </Form.Group>
+      <Form.Group controlId="isPrivateCheckbox">
+        <Form.Check
+          type="checkbox"
+          label="Fichier privé"
+          checked={isPrivate}
+          onChange={handleCheckboxChange}
+        />
       </Form.Group>
       <Button type="submit">Envoyer</Button>
     </Form>
