@@ -4,13 +4,15 @@ const upload = require("../config/multerConfig");
 const Image = require("../models/Image");
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
+const { protect } = require("../middleware/auth");
 const router = express.Router();
+const fs = require("fs");
 
 router.post("/register", upload.single("profilePic"), async (req, res) => {
   try {
     const { name, password } = req.body;
-    const { filename } = req.file;
-    const userExist = await User.find({ name: name });
+    const { filename } = req.file ?? { filename: null };
+    const userExist = await User.findOne({ name: name });
     if (userExist)
       return res.json({ success: false, error: "Username already exists :(" });
     const image = false;
@@ -41,7 +43,7 @@ router.post("/register", upload.single("profilePic"), async (req, res) => {
   }
 });
 
-router.delete("/delete-user/:userid", async (req, res) => {
+router.delete("/delete-user/:userid", protect, async (req, res) => {
   try {
     const userId = req.params.userid;
     const user = await User.findById(userId).exec();
@@ -100,7 +102,6 @@ const sendAuth = async (user, statusCode, res) => {
     success: true,
     _id: user._id,
     name: user.name,
-    email: user.email,
     profilePic: profilePic,
     token: user.getSignedToken(),
     expires_at: new Date(Date.now() + process.env.JWT_EXPIRE * 60 * 60 * 1000),
