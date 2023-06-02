@@ -30,6 +30,7 @@ router.post("/register", upload.single("profilePic"), async (req, res) => {
       });
 
       user.profilePic = image._id;
+      user.images.push(image._id);
       await user.save();
     }
 
@@ -71,10 +72,10 @@ router.post("/login", async (req, res, next) => {
 });
 
 const sendAuth = async (user, statusCode, res) => {
-  const profilePic = await Image.findById(user.profilePic)
+  const profilePic = await Image.findById(user.profilePic);
   return res.status(statusCode).json({
     success: true,
-    _id:user._id,
+    _id: user._id,
     name: user.name,
     email: user.email,
     profilePic: profilePic,
