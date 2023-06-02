@@ -24,3 +24,9 @@ export async function setUserImagePrivacy(userId, imageId, dataToSubmit) {
   );
   return res.data;
 }
+
+export async function deleteUserImage(imageId) {
+  return axios.delete(`/api/images/delete-images/${imageId}`).then((response) => {
+    return response.data;
+  });
+}

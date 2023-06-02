@@ -135,6 +135,7 @@ router.delete("/delete-images/:id", protect, async (req, res) => {
 
     res.json({ message: "Image deleted successfully" });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: "Internal server error", error });
   }
 });

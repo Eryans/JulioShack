@@ -3,6 +3,7 @@ import { Button, Form, Image, Modal } from 'react-bootstrap'
 import { AuthState } from '../../context/AuthProvider'
 import { setUserImagePrivacy } from '../../actions/imageAction'
 import { Notify } from '../../utils'
+import DeleteImageButton from '../DeleteImageButton'
 
 const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
   const { auth } = AuthState()
@@ -143,6 +144,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
             <Button disabled={!hasChange} className="ms-3 mb-3" type="submit">
               Sauvegarder les modifications
             </Button>
+            <DeleteImageButton imageId={image._id} refresh={refresh} />
           </Form>
         )}
       </Modal>
