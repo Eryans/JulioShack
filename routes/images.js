@@ -44,7 +44,7 @@ router.get("/user-images/:user", protect, async (req, res) => {
   }
 });
 // Read - Récupérer toutes les images publiques
-router.get("/public-images/:limit", protect, async (req, res) => {
+router.get("/public-images/:limit", async (req, res) => {
   try {
     const images = await Image.find({ isPrivate: false }).limit(req.params.limit ?? 20);
     res.json({ success: true, data: images });
