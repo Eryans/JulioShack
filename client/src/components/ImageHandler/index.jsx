@@ -10,7 +10,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
   const [isPrivate, setIsPrivate] = useState(image.isPrivate)
   const [hasChange, setHasChange] = useState(false)
   const [profilePic, setProfilePic] = useState(
-    auth.profilePic.path === image.path,
+    auth?.profilePic?.path === image.path,
   )
 
   const canModify = useMemo(() => image.user === auth._id, [
@@ -122,9 +122,9 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
                 label="Fichier privé"
                 checked={isPrivate}
                 onChange={handleCheckboxChange}
-                disabled={auth.profilePic.path === image.path}
+                disabled={auth?.profilePic?.path === image.path}
               />
-              {auth.profilePic.path === image.path && (
+              {auth?.profilePic?.path === image.path && (
                 <p className="ps-3">
                   La photo de profile ne peut pas être privée
                 </p>
