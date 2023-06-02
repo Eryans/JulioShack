@@ -74,6 +74,7 @@ const sendAuth = async (user, statusCode, res) => {
   const profilePic = await Image.findById(user.profilePic)
   return res.status(statusCode).json({
     success: true,
+    _id:user._id,
     name: user.name,
     email: user.email,
     profilePic: profilePic,
