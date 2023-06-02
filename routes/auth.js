@@ -41,6 +41,29 @@ router.post("/register", upload.single("profilePic"), async (req, res) => {
   }
 });
 
+router.delete("/delete-user/:userid", async (req, res) => {
+  try {
+    const userId = req.params.userid;
+    const user = await User.findById(userId).exec();
+    if (!user) return res.json({ success: false, error: "No user found" });
+
+    const userImages = await Image.find({ user: userId }).exec();
+    for (const image of userImages) {
+      fs.unlink(image.path, (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+      await Image.findByIdAndRemove(image._id);
+    }
+    await user.delete();
+    return res.json({ success: true, message: "User deleted :(" });
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, error: error });
+  }
+});
+
 router.post("/login", async (req, res, next) => {
   try {
     const { name, password } = req.body;
