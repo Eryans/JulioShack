@@ -122,7 +122,7 @@ router.put("/images/:id", protect, async (req, res) => {
 });
 
 // Delete - Supprimer une image
-router.delete("/images/:id", protect, async (req, res) => {
+router.delete("/delete-images/:id", protect, async (req, res) => {
   try {
     const image = await Image.findByIdAndRemove(req.params.id);
 

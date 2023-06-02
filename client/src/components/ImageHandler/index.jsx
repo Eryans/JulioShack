@@ -67,6 +67,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
       <Image
         src={image.path}
         alt={image.name}
+        loading="lazy"
         onClick={handleImageClick}
         style={{
           width: '100%',
