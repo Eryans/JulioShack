@@ -1,32 +1,38 @@
-#hometextblock{
-    display: flex;
-    gap:1em;
+#hometextblock {
+  display: flex;
+  gap: 1em;
 }
-#hometextblock > div:first-child{
-    width: 65%;
+#hometextblock > div:first-child {
+  width: 65%;
 }
-#hometextblock > div:not(:first-child){
+#hometextblock > div:not(:first-child) {
+  display: flex;
+  width: 35%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+#hometextblock > div:not(:first-child) a{
+    width:60%;
+}
+#hometextblock > div:not(:first-child) a button{
+    width:100%;
+}
+@media screen and (max-width: 720px) {
+  #hometextblock {
     display: flex;
-    width:35%;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    gap: 1em;
+  }
+  #hometextblock > div:first-child {
+    width: 100%;
+  }
+  #hometextblock > div:not(:first-child) {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-}
-
-@media screen and (max-width: 720px) {
-    #hometextblock{
-        display: flex;
-        flex-direction: column-reverse;
-        gap:1em;
-    }
-    #hometextblock > div:first-child{
-        width: 100%;
-    }
-    #hometextblock > div:not(:first-child){
-        display: flex;
-        width:100%;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
   }
+}
