@@ -5,11 +5,17 @@ const upload = require("../config/multerConfig");
 const { protect } = require("../middleware/auth");
 const User = require("../models/User");
 const router = express.Router();
+const {addUserIdToRequest} = require('../middleware/addUserToRequest')
+
+
+
+
 
 // Create - Ajouter une nouvelle image
 router.post(
   "/upload-user-image/:user",
   protect,
+  addUserIdToRequest,
   upload.single("image"),
   async (req, res) => {
     try {
@@ -28,6 +34,7 @@ router.post(
       await user.save();
       res.status(201).json(image);
     } catch (error) {
+      console.log(error)
       res.status(500).json({ message: "Internal server error", error });
     }
   }
