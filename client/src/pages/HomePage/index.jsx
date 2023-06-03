@@ -26,11 +26,20 @@ const HomePage = () => {
       <div id="hometextblock">
         <HomeText />
         <div>
-          <Link to="/user-images"><Button>Mes images</Button></Link>
+          <Link to="/user-images">
+            <Button>Mes images</Button>
+          </Link>
+          <Link to="/public-images">
+            <Button>Le monde merveilleux des images public des élus inscrit sur le site</Button>
+          </Link>
         </div>
       </div>
       <h2 className="mb-5 mt-5">5 dernières images !</h2>
-      <ImageGallery images={userImages} refresh={handleRefresh} sortByDate={false} />
+      <ImageGallery
+        images={userImages}
+        refresh={handleRefresh}
+        sortByDate={false}
+      />
       <div className="mb-5" />
     </Wrapper>
   )
