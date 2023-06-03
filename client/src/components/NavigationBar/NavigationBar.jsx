@@ -29,7 +29,7 @@ const NavigationBar = () => {
     setAuth(null)
     return navigate('/login')
   }
-
+  console.log(auth)
   return (
     <Navbar collapseOnSelect expand="md" variant="dark" id="nav">
       <Container>
@@ -57,7 +57,7 @@ const NavigationBar = () => {
           ))}
         </span>
         <Navbar.Collapse className="justify-content-end">
-          {auth && auth?.name !== 'Guest' ? (
+          {auth && auth?.auth?._id !== "guest" ? (
             <DropdownButton
               variant=""
               align="end"
