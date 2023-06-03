@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Button, Form, Image, Modal } from 'react-bootstrap'
 import { AuthState } from '../../context/AuthProvider'
 import { setUserImagePrivacy } from '../../actions/imageAction'
 import { Notify } from '../../utils'
 import DeleteImageButton from '../DeleteImageButton'
+import IMAGES from '../../assets'
 
 const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
   const { auth } = AuthState()
@@ -63,6 +64,10 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
     }
   }
 
+  const handleImgError = useCallback((img) => {
+    img.target.src = IMAGES.notfound
+  }, [])
+
   return (
     <>
       <Image
@@ -70,6 +75,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
         alt={image.name}
         loading="lazy"
         onClick={handleImageClick}
+        onError={handleImgError}
         style={{
           width: '100%',
           height: '100%',
@@ -104,6 +110,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
           <Image
             src={image.path}
             alt={image.name}
+            onError={handleImgError}
             className="modal-image"
             style={{
               width: '100%',
