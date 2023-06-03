@@ -73,7 +73,7 @@ const LoginPage = () => {
     <Form className="auth__form" onSubmit={loginHandler}>
       <div className="d-flex flex-column justify-content-center align-items-center">
         <h3 className="text-center mb-5">
-          Login to <br /> Your Julio Shack Account
+          Connexion à votre <br /> compte JulioShack
         </h3>
         <img
           alt="Julio Shack"
@@ -121,15 +121,15 @@ const LoginPage = () => {
         {isLoading ? (
           <Spinner animation="border" role="status" size="sm" />
         ) : (
-          'Continue'
+          'CONNEXION TAVU'
         )}
       </Button>
 
       <Form.Group className="mb-3 text-center" controlId="register">
         <span>
-          Don't have an account?&nbsp;
+          Po de compte mon ptio?&nbsp;
           <Link to="/register" tabIndex="5" className="text-decoration-none">
-            Register now
+            S'inscrire
           </Link>
         </span>
       </Form.Group>

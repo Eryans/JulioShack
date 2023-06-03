@@ -10,14 +10,8 @@ import { PrivateRoutes } from './utils'
 import { HomePage, LoginPage, RegisterPage, UserImagePage } from './pages'
 import { NavigationBar } from './components'
 import LostPage from './pages/LostPage'
-import axios from 'axios'
+import PublicImagePage from './pages/PublicImagePage'
 
-const auth = localStorage.getItem('auth') // Récupérez le token JWT depuis le localStorage
-if (auth) {
-  const authParse = JSON.parse(auth)
-  const token = authParse.token
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-}
 
 const App = () => {
   return (
@@ -34,6 +28,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/lost" element={<LostPage />} />
+        <Route path="/public-images" element={<PublicImagePage />} />
 
         {/* If the user enters an invalid path in the URL it automatically redirects them to the homepage */}
         <Route path="*" element={<Navigate to="/lost" replace />} />

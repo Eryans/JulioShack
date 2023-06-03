@@ -17,7 +17,10 @@ import './NavigationBar.css'
 
 const NavigationBar = () => {
   const [modalShow, setModalShow] = useState(false)
-
+  const allLink = [
+    { link: '/user-images', name: 'Mes images' },
+    { link: '/public-images', name: 'Galerie' },
+  ]
   const navigate = useNavigate()
   const { auth, setAuth } = AuthState()
 
@@ -46,15 +49,23 @@ const NavigationBar = () => {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <span className="d-flex gap-3">
+          {allLink.map((obj, i) => (
+            <Link to={obj.link} key={'key' + i} style={{ color: 'white' }}>
+              {obj.name}
+            </Link>
+          ))}
+        </span>
         <Navbar.Collapse className="justify-content-end">
-          {auth ? (
+          {auth && auth?.name !== 'Guest' ? (
             <DropdownButton
               variant=""
               align="end"
               title={
                 <Image
                   id="profileDropdownIcon"
-                  src={auth.profilePic.path}
+                  style={{ objectFit: 'cover' }}
+                  src={auth.profilePic ? auth.profilePic.path : IMAGES.user}
                   alt="Navbar profile image"
                   roundedCircle
                 />

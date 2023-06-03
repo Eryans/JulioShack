@@ -4,13 +4,15 @@ const upload = require("../config/multerConfig");
 const Image = require("../models/Image");
 const User = require("../models/User");
 const ErrorResponse = require("../utils/errorResponse");
+const { protect } = require("../middleware/auth");
 const router = express.Router();
+const fs = require("fs");
 
 router.post("/register", upload.single("profilePic"), async (req, res) => {
   try {
     const { name, password } = req.body;
-    const { filename } = req.file;
-    const userExist = await User.find({ name: name });
+    const { filename } = req.file ?? { filename: null };
+    const userExist = await User.findOne({ name: name });
     if (userExist)
       return res.json({ success: false, error: "Username already exists :(" });
     const image = false;
@@ -30,6 +32,7 @@ router.post("/register", upload.single("profilePic"), async (req, res) => {
       });
 
       user.profilePic = image._id;
+      user.images.push(image._id);
       await user.save();
     }
 
@@ -37,6 +40,29 @@ router.post("/register", upload.single("profilePic"), async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error: error });
     console.log(error);
+  }
+});
+
+router.delete("/delete-user/:userid", protect, async (req, res) => {
+  try {
+    const userId = req.params.userid;
+    const user = await User.findById(userId).exec();
+    if (!user) return res.json({ success: false, error: "No user found" });
+
+    const userImages = await Image.find({ user: userId }).exec();
+    for (const image of userImages) {
+      fs.unlink(image.path, (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+      await Image.findByIdAndRemove(image._id);
+    }
+    await user.delete();
+    return res.json({ success: true, message: "User deleted :(" });
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, error: error });
   }
 });
 
@@ -71,12 +97,11 @@ router.post("/login", async (req, res, next) => {
 });
 
 const sendAuth = async (user, statusCode, res) => {
-  const profilePic = await Image.findById(user.profilePic)
+  const profilePic = await Image.findById(user.profilePic);
   return res.status(statusCode).json({
     success: true,
-    _id:user._id,
+    _id: user._id,
     name: user.name,
-    email: user.email,
     profilePic: profilePic,
     token: user.getSignedToken(),
     expires_at: new Date(Date.now() + process.env.JWT_EXPIRE * 60 * 60 * 1000),
