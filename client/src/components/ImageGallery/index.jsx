@@ -35,33 +35,31 @@ const ImageGallery = ({
     <>
       {sortByDate ? (
         Object.entries(groupedImages).map(([month, monthImages]) => (
-          <div key={month} className='w-100'>
+          <div key={month} className="w-100">
             <h2>{month}</h2>
-            <Row className="gap-2 align-items-center justify-content-center">
+            <div className="gap-2 d-flex flex-wrap align-items-center justify-content-center">
               {monthImages.map((image, index) => (
-                <Col key={index} xs={4} md={4} lg={3}>
-                  <Imagehandler
-                    image={image}
-                    refresh={refresh}
-                    allowOptionForm={allowOptionForm}
-                  />
-                </Col>
+                <Imagehandler
+                  key={index}
+                  image={image}
+                  refresh={refresh}
+                  allowOptionForm={allowOptionForm}
+                />
               ))}
-            </Row>
+            </div>
           </div>
         ))
       ) : (
-        <Row className="gap-2 align-items-center justify-content-center">
+        <div className="gap-2 d-flex flex-wrap align-items-center justify-content-center">
           {images.map((image, index) => (
-            <Col key={index} xs={4} md={4} lg={3}>
-              <Imagehandler
-                image={image}
-                refresh={refresh}
-                allowOptionForm={allowOptionForm}
-              />
-            </Col>
+            <Imagehandler
+              key={index}
+              image={image}
+              refresh={refresh}
+              allowOptionForm={allowOptionForm}
+            />
           ))}
-        </Row>
+        </div>
       )}
     </>
   )
