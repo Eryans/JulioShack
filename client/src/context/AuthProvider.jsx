@@ -21,7 +21,6 @@ const AuthProvider = ({ children }) => {
     }
 
     if (auth) {
-
       const token = auth.token
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
@@ -45,7 +44,10 @@ const AuthProvider = ({ children }) => {
 }
 
 export const AuthState = () => {
-  return useContext(AuthContext)
+  const context = useContext(AuthContext)
+  return context.auth
+    ? context
+    : { auth: { name: 'Guest', _id: 'guestId' } }
 }
 
 export default AuthProvider

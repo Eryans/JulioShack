@@ -49,13 +49,15 @@ const NavigationBar = () => {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <span className='d-flex gap-3'>
-          {allLink.map((obj) => (
-            <Link to={obj.link} style={{color:'white'}}>{obj.name}</Link>
+        <span className="d-flex gap-3">
+          {allLink.map((obj, i) => (
+            <Link to={obj.link} key={'key' + i} style={{ color: 'white' }}>
+              {obj.name}
+            </Link>
           ))}
         </span>
         <Navbar.Collapse className="justify-content-end">
-          {auth ? (
+          {auth && auth?.name !== 'Guest' ? (
             <DropdownButton
               variant=""
               align="end"

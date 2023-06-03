@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { getPublicImages, getUserImage } from '../../actions/imageAction'
+import { getPublicImages } from '../../actions/imageAction'
 import Wrapper from '../../components/Wrapper'
-import { AuthState } from '../../context/AuthProvider'
 import ImageGallery from '../../components/ImageGallery'
 import MulterInput from '../../components/MulterInput'
 
@@ -12,14 +11,13 @@ const PublicImagePage = () => {
   const handleRefresh = () => {
     setRefresh(!refresh)
   }
-  const { auth } = AuthState()
   useEffect(() => {
     const fetchImage = async () => {
       const images = await getPublicImages(50)
       if (images) setUserImages(images.data)
     }
     fetchImage()
-  }, [auth, refresh])
+  }, [ refresh])
 
   return (
     <Wrapper>
@@ -31,7 +29,7 @@ const PublicImagePage = () => {
           <h2 className='text-center'>Moi aussi je montre au monde ma belle image</h2>
           <MulterInput refresh={handleRefresh} canSetPrivacy={false}/>
         </div>
-        <ImageGallery images={userImages} refresh={handleRefresh} allowOptionForm={true} />
+        <ImageGallery images={userImages} refresh={handleRefresh} allowOptionForm={false} />
       </div>
     </Wrapper>
   )
