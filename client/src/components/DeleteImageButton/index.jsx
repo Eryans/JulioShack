@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Image, Modal } from 'react-bootstrap'
 import { deleteUserImage } from '../../actions/imageAction'
+import { Notify } from '../../utils'
 
 const DeleteImageButton = ({ imageId, refresh }) => {
   const [showModal, setShowModal] = useState(false)
@@ -10,10 +11,12 @@ const DeleteImageButton = ({ imageId, refresh }) => {
       .then(() => {
         setShowModal(false)
         refresh()
+        return Notify('Image supprimay :<', 'success')
       })
       .catch((error) => {
         // Gestion des erreurs
         console.error(error)
+        return Notify(`Shit happend ! ${error}`, 'warn')
       })
   }
 
@@ -32,6 +35,10 @@ const DeleteImageButton = ({ imageId, refresh }) => {
           <Modal.Title>Confirmation de suppression</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Image
+            src="https://media.tenor.com/rGrmSnyBPlMAAAAC/peepo-sad.gif"
+            className="w-100"
+          />
           Êtes-vous sûr de vouloir supprimer cette image ?
         </Modal.Body>
         <Modal.Footer>

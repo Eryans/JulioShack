@@ -115,37 +115,38 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
           />
         </Modal.Body>
         {canModify && allowOptionForm && (
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="isPrivateCheckbox">
-              <Form.Check
-                type="checkbox"
-                className="ms-3 mb-3"
-                label="Fichier privé"
-                checked={isPrivate}
-                onChange={handleCheckboxChange}
-                disabled={auth?.profilePic?.path === image.path}
-              />
-              {auth?.profilePic?.path === image.path && (
-                <p className="ps-3">
-                  La photo de profile ne peut pas être privée
-                </p>
-              )}
-            </Form.Group>
-            <Form.Group controlId="setProfilPicCheckbox">
-              <Form.Check
-                type="checkbox"
-                className="ms-3 mb-3"
-                label="Définir comme image de profil"
-                name="setProfilPic"
-                checked={profilePic}
-                onChange={handleCheckboxProfilePicChange}
-              />
-            </Form.Group>
-            <Button disabled={!hasChange} className="ms-3 mb-3" type="submit">
-              Sauvegarder les modifications
-            </Button>
-            <DeleteImageButton imageId={image._id} refresh={refresh} />
-          </Form>
+          <Modal.Footer>
+            <Form onSubmit={handleSubmit} className="w-100">
+              <Form.Group controlId="isPrivateCheckbox">
+                <Form.Check
+                  type="checkbox"
+                  label="Fichier privé"
+                  checked={isPrivate}
+                  onChange={handleCheckboxChange}
+                  disabled={auth?.profilePic?.path === image.path}
+                />
+                {auth?.profilePic?.path === image.path && (
+                  <p>La photo de profile ne peut pas être privée</p>
+                )}
+              </Form.Group>
+              <Form.Group controlId="setProfilPicCheckbox">
+                <Form.Check
+                  type="checkbox"
+                  className="mb-3"
+                  label="Définir comme image de profil"
+                  name="setProfilPic"
+                  checked={profilePic}
+                  onChange={handleCheckboxProfilePicChange}
+                />
+              </Form.Group>
+              <span className="d-flex justify-content-start align-items-start gap-2">
+                <Button disabled={!hasChange} className="mb-3" type="submit">
+                  Sauvegarder les modifications
+                </Button>
+                <DeleteImageButton imageId={image._id} refresh={refresh} />
+              </span>
+            </Form>
+          </Modal.Footer>
         )}
       </Modal>
     </>
