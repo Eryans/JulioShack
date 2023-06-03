@@ -2,7 +2,7 @@ import { Button, Image, Modal } from 'react-bootstrap'
 
 import { AuthState } from '../../context/AuthProvider'
 import DeleteProfileButton from '../DeleteProfileButton'
-
+import IMAGES from '../../assets/index'
 const ProfileModal = ({ show, onHide }) => {
   const { auth } = AuthState()
 
@@ -23,7 +23,7 @@ const ProfileModal = ({ show, onHide }) => {
         <div className="d-flex justify-content-center">
           <Image
             id="profileModal"
-            src={auth.profilePic.path ?? ""}
+            src={auth?.profilePic?.path ?? IMAGES.user}
             alt="Profile image"
             draggable="false"
             roundedCircle

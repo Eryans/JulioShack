@@ -55,7 +55,7 @@ const NavigationBar = () => {
                 <Image
                   id="profileDropdownIcon"
                   style={{ objectFit: 'cover' }}
-                  src={auth.profilePic ? auth.profilePic.path : ''}
+                  src={auth.profilePic ? auth.profilePic.path : IMAGES.user}
                   alt="Navbar profile image"
                   roundedCircle
                 />
