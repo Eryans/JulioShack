@@ -29,7 +29,6 @@ const NavigationBar = () => {
     setAuth(null)
     return navigate('/login')
   }
-  console.log(auth)
   return (
     <Navbar collapseOnSelect expand="md" variant="dark" id="nav">
       <Container>
