@@ -25,9 +25,12 @@ const PublicImagePage = () => {
     <Wrapper>
       <div className="d-flex flex-column gap-5 align-items-center mb-5">
         <h1 className="text-center">
-          Le Carrousel Épique de l'Imaginarium Visuel
+          Le Carrousel Épique de l'Imaginarium Visuel de la communauté
         </h1>
-        <MulterInput refresh={handleRefresh} canSetPrivacy={false}/>
+        <div>
+          <h2 className='text-center'>Moi aussi je montre au monde ma belle image</h2>
+          <MulterInput refresh={handleRefresh} canSetPrivacy={false}/>
+        </div>
         <ImageGallery images={userImages} refresh={handleRefresh} allowOptionForm={true} />
       </div>
     </Wrapper>

@@ -25,7 +25,7 @@ const UserImagepage = () => {
     <Wrapper>
       <div className="d-flex flex-column gap-5 align-items-center mb-5">
         <h1 className="text-center">
-          Le Carrousel Épique de l'Imaginarium Visuel
+          Le Carrousel Épique de votre Imaginarium Visuel
         </h1>
         <MulterInput refresh={handleRefresh} />
         <ImageGallery images={userImages} refresh={handleRefresh} allowOptionForm={true} />
