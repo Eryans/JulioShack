@@ -17,7 +17,10 @@ import './NavigationBar.css'
 
 const NavigationBar = () => {
   const [modalShow, setModalShow] = useState(false)
-
+  const allLink = [
+    { link: '/user-images', name: 'Mes images' },
+    { link: '/public-images', name: 'Galerie' },
+  ]
   const navigate = useNavigate()
   const { auth, setAuth } = AuthState()
 
@@ -46,6 +49,11 @@ const NavigationBar = () => {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <span className='d-flex gap-3'>
+          {allLink.map((obj) => (
+            <Link to={obj.link} style={{color:'white'}}>{obj.name}</Link>
+          ))}
+        </span>
         <Navbar.Collapse className="justify-content-end">
           {auth ? (
             <DropdownButton
