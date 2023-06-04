@@ -4,8 +4,8 @@ import { uploadUserImage } from '../../actions/imageAction'
 import { AuthState } from '../../context/AuthProvider'
 import { Notify } from '../../utils'
 import { FileUploader } from "react-drag-drop-files";
-
-const MulterInput = ({ refresh, canSetPrivacy = true }) => {
+import './multerinput.css'
+const MulterInput = ({ refresh, canSetPrivacy = true , inputLabel="Choissisez ou glisser une image ici.  "}) => {
   const [selectedFile, setSelectedFile] = useState(null)
   const [isPrivate, setIsPrivate] = useState(false)
   const fileTypes = ["JPG", "PNG", "GIF"];
@@ -44,7 +44,8 @@ const MulterInput = ({ refresh, canSetPrivacy = true }) => {
   return (
     <Form onSubmit={handleSubmit} className='d-flex flex-column gap-3' style={{maxWidth:'322px'}}>
       <Form.Group controlId="fileUpload">
-        <FileUploader onChange={() => console.log("hello")} handleChange={handleFileChange} name="file" types={fileTypes} />
+        <FileUploader classes="uploader" handleChange={handleFileChange} name="file" types={fileTypes} label={inputLabel}/>
+        
       </Form.Group>
       {canSetPrivacy && (
         <Form.Group controlId="isPrivateCheckbox">
@@ -56,7 +57,7 @@ const MulterInput = ({ refresh, canSetPrivacy = true }) => {
           />
         </Form.Group>
       )}
-      <Button type="submit">Envoyer</Button>
+      <Button className="w-50 align-self-end" type="submit">Envoyer</Button>
     </Form>
   )
 }

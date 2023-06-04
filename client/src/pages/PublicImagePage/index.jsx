@@ -25,9 +25,8 @@ const PublicImagePage = () => {
         <h1 className="text-center">
           Le Carrousel Épique de l'Imaginarium Visuel de la communauté
         </h1>
-        <div>
-          <h2 className='text-center'>Moi aussi je montre au monde ma belle image</h2>
-          <MulterInput refresh={handleRefresh} canSetPrivacy={false}/>
+        <div className='d-flex flex-column gap-4 align-items-center'>
+          <MulterInput refresh={handleRefresh} canSetPrivacy={false} inputLabel='Moi aussi je montre au monde ma belle image'/>
         </div>
         <ImageGallery images={userImages} refresh={handleRefresh} allowOptionForm={false} />
       </div>
