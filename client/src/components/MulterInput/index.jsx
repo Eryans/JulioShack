@@ -3,15 +3,16 @@ import { Form, Button } from 'react-bootstrap'
 import { uploadUserImage } from '../../actions/imageAction'
 import { AuthState } from '../../context/AuthProvider'
 import { Notify } from '../../utils'
+import { FileUploader } from "react-drag-drop-files";
 
 const MulterInput = ({ refresh, canSetPrivacy = true }) => {
   const [selectedFile, setSelectedFile] = useState(null)
   const [isPrivate, setIsPrivate] = useState(false)
-
+  const fileTypes = ["JPG", "PNG", "GIF"];
   const { auth } = AuthState()
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0])
+  const handleFileChange = (file) => {
+    setSelectedFile(file)
   }
 
   const handleCheckboxChange = (event) => {
@@ -41,10 +42,9 @@ const MulterInput = ({ refresh, canSetPrivacy = true }) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className='d-flex flex-column gap-3'>
+    <Form onSubmit={handleSubmit} className='d-flex flex-column gap-3' style={{maxWidth:'322px'}}>
       <Form.Group controlId="fileUpload">
-        <Form.Label>Choisir un fichier</Form.Label>
-        <Form.Control type="file" onChange={handleFileChange} />
+        <FileUploader onChange={() => console.log("hello")} handleChange={handleFileChange} name="file" types={fileTypes} />
       </Form.Group>
       {canSetPrivacy && (
         <Form.Group controlId="isPrivateCheckbox">
