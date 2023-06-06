@@ -18,26 +18,18 @@ const HomeText = () => {
       <br />
       <ul>
         <li>
-          1. "Voir mes images" : Ce bouton magique vous transportera vers un
+          1. "Mes images" : Ce bouton magique vous transportera vers un
           royaume où réside votre collection personnelle d'absurdités.
           Contemplez le chef-d'œuvre de vos propres créations, le coffre au
           trésor des mèmes et des photos douteuses. Explorez et redécouvrez le
           génie tordu caché au sein de votre galerie d'images.
         </li>
         <li>
-          2. "Parcourir les images publiques" : Aventurez-vous dans l'immensité
+          2. Contemplez la puissance de "Le monde merveilleux des images public des élus inscrit sur le site" : Aventurez-vous dans l'immensité
           des images publiques créées par d'autres aventuriers comme vous.
           Préparez-vous à être émerveillé, déconcerté et peut-être traumatisé à
           vie par les créations étranges et merveilleuses partagées par notre
           communauté éclectique.
-        </li>
-        <li>
-          3. Et ici, en ce moment même, sur cette page même, contemplez la
-          puissance de "Télécharger une image" ! Laissez libre cours à votre
-          imagination et offrez au monde votre perspective unique. Qu'il
-          s'agisse d'une photo d'un chat avec une moustache ou d'un kaléidoscope
-          hypnotisant de couleurs, le choix vous appartient. Laissez libre cours
-          à votre imagination et laissez le monde s'émerveiller !
         </li>
       </ul>
       Alors attachez-vous et profitez du manège tumultueux de notre paradis de
