@@ -130,7 +130,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
                   label="Fichier privé"
                   checked={isPrivate}
                   onChange={handleCheckboxChange}
-                  disabled={auth?.profilePic?.path === image.path}
+                  disabled={auth?.profilePic?.path === image.path || profilePic}
                 />
                 {auth?.profilePic?.path === image.path && (
                   <p>La photo de profile ne peut pas être privée</p>
@@ -144,6 +144,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
                   name="setProfilPic"
                   checked={profilePic}
                   onChange={handleCheckboxProfilePicChange}
+                  disabled={isPrivate}
                 />
               </Form.Group>
               <span className="d-flex justify-content-start align-items-start gap-2">
