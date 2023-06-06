@@ -15,8 +15,8 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
     auth?.profilePic?.path === image.path,
   )
 
-  const canModify = useMemo(() => image.user === auth._id, [
-    auth._id,
+  const canModify = useMemo(() => (auth ? image.user === auth._id : false), [
+    auth,
     image.user,
   ])
 
@@ -121,7 +121,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
             }}
           />
         </Modal.Body>
-        {canModify && allowOptionForm && (
+        {canModify && allowOptionForm && auth && (
           <Modal.Footer>
             <Form onSubmit={handleSubmit} className="w-100">
               <Form.Group controlId="isPrivateCheckbox">

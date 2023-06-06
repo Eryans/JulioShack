@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
     localStorage.getItem('auth') !== null &&
       new Date() < new Date(JSON.parse(localStorage.getItem('auth')).expires_at)
       ? JSON.parse(localStorage.getItem('auth'))
-      : null,
+      : { auth: { _id: 'guest', name: 'Guest' } },
   )
 
   useEffect(() => {
@@ -44,10 +44,7 @@ const AuthProvider = ({ children }) => {
 }
 
 export const AuthState = () => {
-  const context = useContext(AuthContext)
-  return context.auth
-    ? context
-    : { auth: { name: 'Guest', _id: 'guestId' } }
+  return useContext(AuthContext)
 }
 
 export default AuthProvider
