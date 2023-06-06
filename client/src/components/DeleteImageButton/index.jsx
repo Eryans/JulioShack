@@ -3,13 +3,14 @@ import { Button, Image, Modal } from 'react-bootstrap'
 import { deleteUserImage } from '../../actions/imageAction'
 import { Notify } from '../../utils'
 
-const DeleteImageButton = ({ imageId, refresh }) => {
+const DeleteImageButton = ({ imageId, refresh, handleCloseModalOrigin }) => {
   const [showModal, setShowModal] = useState(false)
 
   const handleDeleteImage = () => {
     deleteUserImage(imageId)
       .then(() => {
         setShowModal(false)
+        handleCloseModalOrigin()
         refresh()
         return Notify('Image supprimay :<', 'success')
       })

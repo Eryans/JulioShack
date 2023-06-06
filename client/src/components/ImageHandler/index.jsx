@@ -151,7 +151,7 @@ const Imagehandler = ({ image, refresh, allowOptionForm = false }) => {
                 <Button disabled={!hasChange} className="mb-3" type="submit">
                   Sauvegarder les modifications
                 </Button>
-                <DeleteImageButton imageId={image._id} refresh={refresh} />
+                <DeleteImageButton imageId={image._id} refresh={refresh} handleCloseModalOrigin={handleCloseModal}/>
               </span>
             </Form>
           </Modal.Footer>
