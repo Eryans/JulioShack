@@ -118,7 +118,9 @@ const RegisterPage = () => {
   }
 
   return (
-    <Form className="auth__form" onSubmit={registerHandler}  encType="multipart/form-data">
+    <Form className="auth__form" onSubmit={registerHandler}  encType="multipart/form-data" style={{
+      backgroundColor: "rgba(0,0,0,.4)",
+    }}>
       <h2 className="text-center mb-5">Create new account</h2>
 
       <Form.Group className="mb-3 d-flex justify-content-center">

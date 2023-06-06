@@ -70,7 +70,9 @@ const LoginPage = () => {
   }
 
   return (
-    <Form className="auth__form" onSubmit={loginHandler}>
+    <Form className="auth__form" onSubmit={loginHandler} style={{
+      backgroundColor: "rgba(0,0,0,.4)",
+    }}>
       <div className="d-flex flex-column justify-content-center align-items-center">
         <h3 className="text-center mb-5">
           Connexion à votre <br /> compte JulioShack

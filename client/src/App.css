@@ -2,12 +2,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color:white !important;
+  --grey-bg:hsl(0, 0%, 24%);
 }
 
 body {
-  background-color: hsl(213deg 85% 97%);
+  background-color: var(--grey-bg);
 }
-
+input[type=text],input[type=password],#profilePic{
+  color:black !important;
+}
+h1,h2,h3{
+  color:#32bb93 !important;
+}
 .auth__form {
   margin: auto;
   width: 360px;
